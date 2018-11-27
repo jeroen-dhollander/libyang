@@ -348,6 +348,19 @@ void lyxp_set_free(struct lyxp_set *set);
 struct lyxp_expr *lyxp_parse_expr(struct ly_ctx *ctx, const char *expr);
 
 /**
+ * @brief Parse an XPath expression and populate its repeat array.
+ *
+ * Will fail if the XPath expression is invalid,
+ * e.g. "/ = " will fail because of the missing right-hand side of the '='.
+ *
+ * @param[in] ctx Context for errors.
+ * @param[in] exp Parsed XPath expression. It is modified as its repeat array is populated
+ *
+ * @return EXIT_SUCCESS on success, -1 on error.
+ */
+int lyxp_find_repeated_expr(struct ly_ctx *ctx, struct lyxp_expr *exp);
+
+/**
  * @brief Frees a parsed XPath expression. \p expr should not be used afterwards.
  *
  * @param[in] expr Expression to free.
